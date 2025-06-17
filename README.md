@@ -100,7 +100,7 @@ HDC dc = GetDC(hwnd);
 
 
 
-# openGL 주전자 회전시키기
+# FreeGLUT 주전자 회전시키기
 
 FreeGLUT를 이용해 빨간색 와이어프레임 주전자를 회전시키는 간단한 예제입니다.
 
