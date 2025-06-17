@@ -1,0 +1,57 @@
+#include <GL/freeglut.h>
+
+float angle = 0.0f;
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0, 0, 3,   // eye
+        0, 0, 0,   // center
+        0, 1, 0);  // up
+
+    glRotatef(angle, 0.0f, 1.0f, 0.0f);
+
+    // 색상 설정: 빨간색
+    glColor3f(1.0f, 0.0f, 0.0f);
+
+    // 와이어프레임 주전자
+    glutWireTeapot(0.5);
+
+    glutSwapBuffers();
+}
+
+void timer(int value) {
+    angle += 1.0f;
+    if (angle > 360.0f) angle -= 360.0f;
+    glutPostRedisplay();
+    glutTimerFunc(16, timer, 0);
+}
+
+void reshape(int w, int h) {
+    if (h == 0) h = 1;
+    float ratio = (float)w / (float)h;
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, ratio, 1.0, 100.0);
+
+    glViewport(0, 0, w, h);
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("Red Wireframe Teapot");
+
+    glEnable(GL_DEPTH_TEST);
+
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutTimerFunc(0, timer, 0);
+
+    glutMainLoop();
+    return 0;
+}
