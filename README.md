@@ -32,7 +32,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int nCmd) {
 ```
 
 ### 3. OpenGL 렌더링 컨텍스트 초기화
-
+OpenGL에서 그리기 위해 윈도우 디바이스 컨텍스트와 렌더링 컨텍스트를 연결합니다.
 ```cpp
 HDC dc = GetDC(hwnd);
 
@@ -48,7 +48,7 @@ HDC dc = GetDC(hwnd);
 ```
 
 ### 4. 정점 데이터 정의 (위치와 색상)
-
+정점 배열로 위치와 RGB 색상 데이터를 함께 저장합니다.
 ```cpp
     float v[] = {
         -0.5f, -0.5f, 1, 0, 0,  // 좌하 (빨강)
@@ -63,7 +63,7 @@ HDC dc = GetDC(hwnd);
 ```
 
 ### 5. 메시지 루프와 렌더링 코드
-
+OpenGL 함수로 정점과 색상 배열을 설정하고 삼각형 2개를 그립니다.
 ```cpp
  MSG msg;
     while (PeekMessage(&msg, 0, 0, 0, PM_REMOVE) || 1) {
@@ -89,7 +89,7 @@ HDC dc = GetDC(hwnd);
 ```
 
 ### 6. 종료 처리
-
+프로그램 종료 시 렌더링 컨텍스트와 디바이스 컨텍스트를 정리합니다.
 ```cpp
  wglMakeCurrent(0, 0);
     wglDeleteContext(rc);
@@ -100,13 +100,14 @@ HDC dc = GetDC(hwnd);
 
 
 
-# FreeGLUT 주전자 회전시키기
+# 🎨 FreeGLUT를 이용하여 주전자 회전시키기
 
 FreeGLUT를 이용해 빨간색 와이어프레임 주전자를 회전시키는 간단한 예제입니다.
 
 ---
+## 💻 코드 설명
 
-## 1. 헤더 포함과 전역 변수 선언
+### 1. 헤더 포함과 전역 변수 선언
 
 ```cpp
 #include <GL/freeglut.h>
@@ -114,8 +115,8 @@ FreeGLUT를 이용해 빨간색 와이어프레임 주전자를 회전시키는 
 float angle = 0.0f;
 ```
 
-## 2. 화면 출력 함수 (display)
-
+### 2. 화면 출력 함수 (display)
+카메라를 설정하고 빨간 와이어프레임 주전자를 회전시켜 그립니다.
 ```cpp
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -135,8 +136,8 @@ void display() {
     glutSwapBuffers();
 }
 ```
-## 3. 타이머 함수 (timer)
-
+### 3. 타이머 함수 (timer)
+매 프레임마다 회전 각도를 증가시키고 화면 갱신을 요청합니다.
 ```cpp
 void timer(int value) {
     angle += 1.0f;
@@ -145,8 +146,8 @@ void timer(int value) {
     glutTimerFunc(16, timer, 0);
 }
 ```
-## 4. 창 크기 변경 처리 함수 (reshape)
-
+### 4. 창 크기 변경 처리 함수 (reshape)
+창 크기가 변경될 때 올바른 원근 투영과 뷰포트를 설정합니다.
 ```cpp
 void reshape(int w, int h) {
     if (h == 0) h = 1;
@@ -159,8 +160,8 @@ void reshape(int w, int h) {
     glViewport(0, 0, w, h);
 }
 ```
-## 5. main 함수 및 초기화
-
+### 5. main 함수 및 초기화
+FreeGLUT 초기화 후 콜백 함수를 등록하고, 메인 루프를 시작합니다.
 ```cpp
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
