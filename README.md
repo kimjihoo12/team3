@@ -1,5 +1,6 @@
 # 무지개 사각형
-이 코드는 FreeGLUT 라이브러리를 사용해서 화면 중앙에 빨간색 와이어프레임 주전자가 회전하는 3D 장면을 만든다. glRotatef()로 y축을 기준으로 주전자를 회전시키고, glColor3f(1,0,0)로 빨간색을 지정한다. glutWireTeapot(0.5)를 호출하면 와이어프레임 주전자가 그려진다.
+이 코드는 Windows API와 OpenGL을 직접 사용해서 컬러 사각형을 렌더링하는 예제다. FreeGLUT 같은 외부 라이브러리는 안 쓰고, windows.h와 GL.h를 사용한다. 좌표와 색상이 하나의 배열 v에 interleaved 형태로 들어있다.
+(x, y) 좌표 두 개 다음에 (r, g, b) 세 개가 붙는다. 총 6개의 꼭짓점이 있으니까 삼각형 두 개가 만들어진다.
 ```cpp
 #pragma comment(lib, "opengl32.lib")
 
@@ -50,8 +51,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 }
 ```
 # 회전하는 주전자
-이 코드는 Windows API와 OpenGL을 직접 사용해서 컬러 사각형을 렌더링하는 예제다. FreeGLUT 같은 외부 라이브러리는 안 쓰고, windows.h와 GL.h를 사용한다. 좌표와 색상이 하나의 배열 v에 interleaved 형태로 들어있다.
-(x, y) 좌표 두 개 다음에 (r, g, b) 세 개가 붙는다. 총 6개의 꼭짓점이 있으니까 삼각형 두 개가 만들어진다.
+이 코드는 FreeGLUT 라이브러리를 사용해서 화면 중앙에 빨간색 와이어프레임 주전자가 회전하는 3D 장면을 만든다. glRotatef()로 y축을 기준으로 주전자를 회전시키고, glColor3f(1,0,0)로 빨간색을 지정한다. glutWireTeapot(0.5)를 호출하면 와이어프레임 주전자가 그려진다.
 
 ```cpp
 #include <GL/freeglut.h>
